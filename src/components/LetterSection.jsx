@@ -1531,7 +1531,7 @@ function LetterContent({ onContinue }) {
 
       {/* Buttons */}
       <div className="mt-6 flex items-center justify-center gap-3 flex-wrap z-30 px-4">
-        {!isMobile && S > 0 && (
+        {(isMobile ? currentPage > -1 : S > 0) && (
           <PageButton
             label="Previous Page"
             onClick={turnBackward}
@@ -1546,13 +1546,11 @@ function LetterContent({ onContinue }) {
             isFinal
           />
         ) : (
-          !isMobile && (
-            <PageButton
-              label="Next Page"
-              onClick={turnForward}
-              delay={0.2}
-            />
-          )
+          <PageButton
+            label="Next Page"
+            onClick={turnForward}
+            delay={0.2}
+          />
         )}
       </div>
     </motion.div>
