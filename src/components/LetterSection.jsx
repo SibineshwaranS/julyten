@@ -578,8 +578,8 @@ function VintagePaperPage({ pageIndex, totalPages, isFirstPage, blocks, isBackSi
               </p>
 
               <div className="mt-8 border border-amber-900/15 bg-[#fbf5dc]/50 px-6 py-4 rounded-sm shadow-sm flex flex-col items-center gap-2">
-                <span className="text-amber-900/40 text-[9px] uppercase tracking-[4px]" style={FONT_BODY}>Opened On</span>
-                <span className="text-amber-950 text-base" style={FONT_BODY}>June 10, 2026</span>
+                <span className="text-amber-900/40 text-[9px] uppercase tracking-[4px]" style={FONT_BODY}>Letter by</span>
+                <span className="text-amber-950 text-base" style={FONT_BODY}>Your Sibi</span>
                 <div className="w-full h-px bg-amber-900/10 my-1" />
                 <span className="text-amber-900/40 text-[9px] uppercase tracking-[4px]" style={FONT_BODY}>Dedicated To</span>
                 <span className="text-amber-950 text-base font-semibold" style={FONT_BODY}>Ammuni</span>
