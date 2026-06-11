@@ -1,0 +1,163 @@
+@import "tailwindcss";
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  overflow-x:hidden;
+  background:#0d0a07;
+  color:white;
+  font-family:'Cormorant Garamond', serif;
+}
+
+/* Luxury Glow */
+.gold-glow{
+  box-shadow:
+    0 0 40px rgba(255,215,150,0.2),
+    0 0 80px rgba(255,215,150,0.1);
+}
+
+/* Film Grain */
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  background-image:url("https://www.transparenttextures.com/patterns/asfalt-dark.png");
+  opacity:0.15;
+  pointer-events:none;
+  z-index:999;
+}
+@keyframes float {
+  0%{
+    transform: translateY(0px);
+    opacity:0;
+  }
+
+  20%{
+    opacity:1;
+  }
+
+  80%{
+    opacity:1;
+  }
+
+  100%{
+    transform: translateY(-120px);
+    opacity:0;
+  }
+}
+
+.animate-float{
+  animation: float linear infinite;
+}
+
+
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+*:focus,
+*:focus-visible,
+*:active {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+button,
+input,
+textarea,
+select,
+a {
+  -webkit-appearance: none;
+  appearance: none;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+input:focus,
+button:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+html,
+body {
+  overflow-x: hidden;
+  touch-action: manipulation;
+}
+
+input,
+button,
+textarea,
+select,
+a {
+  -webkit-tap-highlight-color: transparent;
+  tap-highlight-color: transparent;
+}
+
+*:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+html,
+body,
+#root {
+  width: 100%;
+  overflow-x: hidden;
+}
+
+
+
+
+
+/* ── 1cm top & bottom gap on every page ── */
+section {
+  padding-top: max(1cm, env(safe-area-inset-top, 0px));
+  padding-bottom: max(1cm, env(safe-area-inset-bottom, 0px));
+}
+
+/* ── GPU STABILIZATION UTILITIES FOR MOBILE RENDERING ── */
+
+/* Force hardware acceleration on elements to promote them to their own GPU compositor layer */
+.gpu-accelerated {
+  transform: translate3d(0, 0, 0);
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  perspective: 1000px;
+  -webkit-perspective: 1000px;
+  transform-style: preserve-3d;
+  -webkit-transform-style: preserve-3d;
+}
+
+/* Isolate layers to prevent layout paint-storms, redraws, and Z-fighting on mobile browser viewports */
+.layer-isolated {
+  isolation: isolate;
+  contain: layout paint style;
+}
+
+/* Specific stabilization for large blurred glowing elements */
+.glow-stabilized {
+  transform: translateZ(0);
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+/* Keep 3D book folded page turns stable on iOS/Safari GPU rendering layers */
+.page-transform-3d {
+  transform-style: preserve-3d;
+  -webkit-transform-style: preserve-3d;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transform: translate3d(0, 0, 0);
+  will-change: transform, opacity;
+}
