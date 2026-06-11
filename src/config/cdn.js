@@ -11,7 +11,7 @@
 //
 // If CDN_BASE_URL is empty, the application safely falls back to local Vite imports.
 
-export const CDN_BASE_URL = "";
+export const CDN_BASE_URL = "https://cdn.jsdelivr.net/gh/SibineshwaranS/julyten@main/src/assets/";
 
 /**
  * Resolves the URL of an asset, preferring the CDN if configured.
