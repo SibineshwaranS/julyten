@@ -10,6 +10,7 @@ import GalleryPage from "./pages/GalleryPage";
 import GiftPage from "./pages/GiftPage";
 import LetterPage from "./pages/LetterPage";
 import CakePage from "./pages/CakePage";
+import GamePage from "./pages/GamePage";
 import EndingPage from "./pages/EndingPage";
 
 
@@ -108,6 +109,7 @@ function App() {
         <Route path="/gift" element={ unlocked ? ( <GiftPage /> ) : ( <Navigate to="/" /> ) } />
         <Route path="/letter" element={unlocked ? <LetterPage /> : <Navigate to="/" />} />
         <Route path="/cake" element={unlocked ? <CakePage /> : <Navigate to="/" />} />
+        <Route path="/game" element={unlocked ? <GamePage /> : <Navigate to="/" />} />
         <Route path="/final" element={unlocked ? <EndingPage /> : <Navigate to="/" />} />
 
       </Routes>
