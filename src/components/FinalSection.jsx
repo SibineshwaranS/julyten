@@ -652,10 +652,100 @@ function CinematicReveal({ onComplete }) {
   );
 }
 
+/* ─── VAPORIZE PARTICLES EFFECT ──────────────────────────────────────── */
+function VaporizeParticles() {
+  const particles = useMemo(() => {
+    // Generate 35 small golden embers deterministically to satisfy React purity rules
+    const embers = Array.from({ length: 35 }, (_, i) => {
+      const seed = i + 1;
+      const rand1 = Math.abs((Math.sin(seed * 12.9898) * 43758.5453) % 1);
+      const rand2 = Math.abs((Math.sin(seed * 78.233) * 43758.5453) % 1);
+      const rand3 = Math.abs((Math.sin(seed * 45.164) * 43758.5453) % 1);
+      const rand4 = Math.abs((Math.sin(seed * 92.128) * 43758.5453) % 1);
+      return {
+        id: `ember_${i}`,
+        left: rand1 * 80 + 10,
+        top: rand2 * 80 + 10,
+        size: rand3 * 5 + 2,
+        dur: rand4 * 1.4 + 0.8,
+        xDrift: (rand1 - 0.5) * 140,
+        yDrift: -(rand2 * 180 + 120),
+        color: "radial-gradient(circle, #fde68a 0%, #d97706 70%, transparent 100%)",
+        blur: "none",
+      };
+    });
+
+    // Generate 15 soft vapor puffs deterministically
+    const vapor = Array.from({ length: 15 }, (_, i) => {
+      const seed = i + 100;
+      const rand1 = Math.abs((Math.sin(seed * 12.9898) * 43758.5453) % 1);
+      const rand2 = Math.abs((Math.sin(seed * 78.233) * 43758.5453) % 1);
+      const rand3 = Math.abs((Math.sin(seed * 45.164) * 43758.5453) % 1);
+      const rand4 = Math.abs((Math.sin(seed * 92.128) * 43758.5453) % 1);
+      return {
+        id: `vapor_${i}`,
+        left: rand1 * 60 + 20,
+        top: rand2 * 60 + 20,
+        size: rand3 * 24 + 16,
+        dur: rand4 * 1.8 + 1.2,
+        xDrift: (rand1 - 0.5) * 80,
+        yDrift: -(rand2 * 120 + 80),
+        color: "radial-gradient(circle, rgba(254,243,199,0.3) 0%, rgba(245,158,11,0.06) 65%, transparent 100%)",
+        blur: "blur(4px)",
+      };
+    });
+
+    return [...embers, ...vapor];
+  }, []);
+
+  return (
+    <div className="absolute inset-0 pointer-events-none overflow-hidden z-20">
+      {particles.map((p) => (
+        <motion.div
+          key={p.id}
+          className="absolute gpu-accelerated"
+          style={{
+            left: `${p.left}%`,
+            top: `${p.top}%`,
+            width: p.size,
+            height: p.size,
+            background: p.color,
+            borderRadius: "50%",
+            filter: p.blur,
+          }}
+          initial={{ opacity: 0, scale: 0 }}
+          animate={{
+            opacity: [0, 0.85, 0.85, 0],
+            scale: [0.3, 1.6, 0.3],
+            x: p.xDrift,
+            y: p.yDrift,
+          }}
+          transition={{
+            duration: p.dur,
+            ease: "easeOut",
+          }}
+        />
+      ))}
+    </div>
+  );
+}
+
 /* ─── FINAL FRAME ────────────────────────────────────────────────────── */
 function FinalFrame({ onReplay }) {
   const [isEnding, setIsEnding] = useState(false);
   const [showEndingMsg, setShowEndingMsg] = useState(false);
+  const [vaporizeActive, setVaporizeActive] = useState(false);
+
+  useEffect(() => {
+    if (isEnding && !showEndingMsg) {
+      const timer = setTimeout(() => {
+        setVaporizeActive(true);
+      }, 3100);
+      return () => clearTimeout(timer);
+    } else {
+      setVaporizeActive(false);
+    }
+  }, [isEnding, showEndingMsg]);
 
   return (
     <motion.div
@@ -808,22 +898,31 @@ function FinalFrame({ onReplay }) {
             className="fixed inset-0 z-50 bg-black flex flex-col items-center justify-center p-4"
           >
             {!showEndingMsg ? (
-              <motion.img
-                src={g19}
-                alt="Final Memory"
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{
-                  opacity: [0, 1, 1, 0],
-                  scale: [0.95, 1, 1, 1.01],
-                }}
-                transition={{
-                  duration: 4,
-                  times: [0, 0.25, 0.75, 1],
-                  ease: "easeInOut",
-                }}
-                onAnimationComplete={() => setShowEndingMsg(true)}
-                className="max-w-[90vw] max-h-[80vh] rounded-2xl object-contain border border-amber-200/10 shadow-[0_0_60px_rgba(255,200,120,0.12)]"
-              />
+              <div className="relative flex items-center justify-center">
+                <motion.img
+                  src={g19}
+                  alt="Final Memory"
+                  initial={{ opacity: 0, scale: 0.95, filter: "blur(0px) brightness(100%)" }}
+                  animate={{
+                    opacity: [0, 1, 1, 0],
+                    scale: [0.95, 1, 1, 1.12],
+                    filter: [
+                      "blur(0px) brightness(100%)",
+                      "blur(0px) brightness(100%)",
+                      "blur(0px) brightness(100%)",
+                      "blur(24px) brightness(280%)"
+                    ]
+                  }}
+                  transition={{
+                    duration: 4.5,
+                    times: [0, 0.22, 0.68, 1],
+                    ease: "easeInOut",
+                  }}
+                  onAnimationComplete={() => setShowEndingMsg(true)}
+                  className="max-w-[90vw] max-h-[80vh] rounded-2xl object-contain border border-amber-200/10 shadow-[0_0_60px_rgba(255,200,120,0.12)]"
+                />
+                {vaporizeActive && <VaporizeParticles />}
+              </div>
             ) : (
               <motion.div
                 initial={{ opacity: 0, scale: 0.95, y: 15, filter: "blur(8px)" }}
