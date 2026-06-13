@@ -958,7 +958,7 @@ function ILUReveal({ onReplay, onNext }) {
         initial={{opacity:0,letterSpacing:"2px"}} animate={{opacity:1,letterSpacing:"12px"}}
         transition={{duration:1.5,delay:0.2}}
         style={{...FONT_BODY,color:"rgba(253,230,138,0.38)",fontSize:10,textTransform:"uppercase"}}
-      >A message from the teddy</motion.p>
+      >A message for You</motion.p>
 
       <motion.div initial={{scaleX:0}} animate={{scaleX:1}} transition={{duration:1,delay:0.4}}
         style={{width:160,height:1,background:"linear-gradient(to right,transparent,rgba(251,191,36,0.35),transparent)"}}/>

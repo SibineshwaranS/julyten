@@ -12,6 +12,7 @@ import LetterPage from "./pages/LetterPage";
 import CakePage from "./pages/CakePage";
 import GamePage from "./pages/GamePage";
 import EndingPage from "./pages/EndingPage";
+import EndPage from "./pages/EndPage";
 
 
 function ScrollToTop() {
@@ -111,6 +112,7 @@ function App() {
         <Route path="/cake" element={unlocked ? <CakePage /> : <Navigate to="/" />} />
         <Route path="/game" element={unlocked ? <GamePage /> : <Navigate to="/" />} />
         <Route path="/final" element={unlocked ? <EndingPage /> : <Navigate to="/" />} />
+        <Route path="/end" element={unlocked ? <EndPage /> : <Navigate to="/" />} />
 
       </Routes>
     </>

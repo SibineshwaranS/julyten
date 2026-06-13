@@ -1,10 +1,6 @@
 import { useState, useRef, useEffect, useCallback, useMemo } from "react";
 import { motion, AnimatePresence, useMotionValue, useTransform } from "framer-motion";
 import { useNavigate } from "react-router-dom";
-import localG19 from "../assets/gallery/g19.jpg";
-import { getAssetUrl } from "../config/cdn";
-
-const g19 = getAssetUrl(localG19, "gallery/g19.jpg");
 
 /* ─── FONTS (exact project match) ────────────────────────────────────── */
 const FONT_BODY   = { fontFamily: "'Cormorant Garamond', serif" };
@@ -54,34 +50,27 @@ const CLOSING = {
   sign:  "Forever yours, ♡",
 };
 
-const stats = [
-  { value: "6 Months & 29 Days", label: "of knowing you" },
-  { value: "30 Weeks", label: "of a beautiful journey" },
-  { value: "210 Days", label: "of precious memories" },
-  { value: "5,040 Hours", label: "of thinking about you" },
-  { value: "302,400 Minutes", label: "of shared moments" },
-  { value: "18,144,000 Seconds", label: "of you in my heart" },
-];
 
-const FAREWELL_NOTE = [
-  "I hope this small effort of mine brings a warm smile to your face and makes this day a little more memorable. Every page, every line, and every detail here was created only for you—my Ammuni.",
-  "No matter where our lives take us, I will hold you in my heart and wait for you until my very last breath. Every single day, I will quietly wait for your reply, keeping a place for you that no one else can ever fill.",
-  "In this life, I could never choose anyone else over you. You are, and will always be, the only one.",
-  "I love you. Goodbye... ♡"
-];
 
 /* ─── DUST PARTICLES (exact letter section style) ────────────────────── */
 function DustParticles() {
   const particles = useMemo(() => 
-    Array.from({ length: 22 }, (_, i) => ({
-      id: i,
-      x: Math.random() * 100,
-      y: Math.random() * 100,
-      size: Math.random() * 3 + 1,
-      dur: Math.random() * 12 + 8,
-      delay: Math.random() * 6,
-      opacity: Math.random() * 0.25 + 0.05,
-    })),
+    Array.from({ length: 22 }, (_, i) => {
+      const seed = i + 1;
+      const rand1 = Math.abs((Math.sin(seed * 12.9898) * 43758.5453) % 1);
+      const rand2 = Math.abs((Math.sin(seed * 78.233) * 43758.5453) % 1);
+      const rand3 = Math.abs((Math.sin(seed * 45.164) * 43758.5453) % 1);
+      const rand4 = Math.abs((Math.sin(seed * 92.128) * 43758.5453) % 1);
+      return {
+        id: i,
+        x: rand1 * 100,
+        y: rand2 * 100,
+        size: rand3 * 3 + 1,
+        dur: rand4 * 12 + 8,
+        delay: rand1 * 6,
+        opacity: rand2 * 0.25 + 0.05,
+      };
+    }),
     []
   );
 
@@ -103,17 +92,24 @@ function DustParticles() {
 /* ─── FLOATING GOLD FLECKS ───────────────────────────────────────────── */
 function GoldFlecks() {
   const flecks = useMemo(() => 
-    Array.from({ length: 18 }, (_, i) => ({
-      id: i,
-      x: Math.random() * 100,
-      y: 100 + Math.random() * 20,
-      size: Math.random() * 5 + 2,
-      dur: Math.random() * 18 + 14,
-      delay: Math.random() * 10,
-      opacity: Math.random() * 0.18 + 0.06,
-      drift: (Math.random() - 0.5) * 80,
-      repeatDelay: Math.random() * 4 + 2,
-    })),
+    Array.from({ length: 18 }, (_, i) => {
+      const seed = i + 50;
+      const rand1 = Math.abs((Math.sin(seed * 12.9898) * 43758.5453) % 1);
+      const rand2 = Math.abs((Math.sin(seed * 78.233) * 43758.5453) % 1);
+      const rand3 = Math.abs((Math.sin(seed * 45.164) * 43758.5453) % 1);
+      const rand4 = Math.abs((Math.sin(seed * 92.128) * 43758.5453) % 1);
+      return {
+        id: i,
+        x: rand1 * 100,
+        y: 100 + rand2 * 20,
+        size: rand3 * 5 + 2,
+        dur: rand4 * 18 + 14,
+        delay: rand1 * 10,
+        opacity: rand2 * 0.18 + 0.06,
+        drift: (rand3 - 0.5) * 80,
+        repeatDelay: rand4 * 4 + 2,
+      };
+    }),
     []
   );
 
@@ -147,19 +143,26 @@ function GoldFlecks() {
 /* ─── BOKEH ORBS (amber/gold palette) ───────────────────────────────── */
 function BokehOrbs() {
   const orbs = useMemo(() => 
-    Array.from({ length: 12 }, (_, i) => ({
-      id: i,
-      x: Math.random() * 100,
-      y: Math.random() * 100,
-      size: Math.random() * 140 + 50,
-      dur: Math.random() * 14 + 9,
-      delay: Math.random() * 7,
-      opacity: Math.random() * 0.09 + 0.02,
-      color: [
-        "rgba(255,200,100,", "rgba(220,160,60,",
-        "rgba(255,180,80,",  "rgba(200,140,40,",
-      ][i % 4],
-    })),
+    Array.from({ length: 12 }, (_, i) => {
+      const seed = i + 150;
+      const rand1 = Math.abs((Math.sin(seed * 12.9898) * 43758.5453) % 1);
+      const rand2 = Math.abs((Math.sin(seed * 78.233) * 43758.5453) % 1);
+      const rand3 = Math.abs((Math.sin(seed * 45.164) * 43758.5453) % 1);
+      const rand4 = Math.abs((Math.sin(seed * 92.128) * 43758.5453) % 1);
+      return {
+        id: i,
+        x: rand1 * 100,
+        y: rand2 * 100,
+        size: rand3 * 140 + 50,
+        dur: rand4 * 14 + 9,
+        delay: rand1 * 7,
+        opacity: rand2 * 0.09 + 0.02,
+        color: [
+          "rgba(255,200,100,", "rgba(220,160,60,",
+          "rgba(255,180,80,",  "rgba(200,140,40,",
+        ][i % 4],
+      };
+    }),
     []
   );
 
@@ -187,15 +190,22 @@ function BokehOrbs() {
 /* ─── STAR FIELD ─────────────────────────────────────────────────────── */
 function StarField() {
   const stars = useMemo(() => 
-    Array.from({ length: 55 }, (_, i) => ({
-      id: i,
-      x: Math.random() * 100,
-      y: Math.random() * 100,
-      size: Math.random() * 1.8 + 0.4,
-      dur: Math.random() * 4 + 2,
-      delay: Math.random() * 5,
-      opacity: Math.random() * 0.45 + 0.1,
-    })),
+    Array.from({ length: 55 }, (_, i) => {
+      const seed = i + 300;
+      const rand1 = Math.abs((Math.sin(seed * 12.9898) * 43758.5453) % 1);
+      const rand2 = Math.abs((Math.sin(seed * 78.233) * 43758.5453) % 1);
+      const rand3 = Math.abs((Math.sin(seed * 45.164) * 43758.5453) % 1);
+      const rand4 = Math.abs((Math.sin(seed * 92.128) * 43758.5453) % 1);
+      return {
+        id: i,
+        x: rand1 * 100,
+        y: rand2 * 100,
+        size: rand3 * 1.8 + 0.4,
+        dur: rand4 * 4 + 2,
+        delay: rand1 * 5,
+        opacity: rand2 * 0.45 + 0.1,
+      };
+    }),
     []
   );
 
@@ -652,100 +662,11 @@ function CinematicReveal({ onComplete }) {
   );
 }
 
-/* ─── VAPORIZE PARTICLES EFFECT ──────────────────────────────────────── */
-function VaporizeParticles() {
-  const particles = useMemo(() => {
-    // Generate 35 small golden embers deterministically to satisfy React purity rules
-    const embers = Array.from({ length: 35 }, (_, i) => {
-      const seed = i + 1;
-      const rand1 = Math.abs((Math.sin(seed * 12.9898) * 43758.5453) % 1);
-      const rand2 = Math.abs((Math.sin(seed * 78.233) * 43758.5453) % 1);
-      const rand3 = Math.abs((Math.sin(seed * 45.164) * 43758.5453) % 1);
-      const rand4 = Math.abs((Math.sin(seed * 92.128) * 43758.5453) % 1);
-      return {
-        id: `ember_${i}`,
-        left: rand1 * 80 + 10,
-        top: rand2 * 80 + 10,
-        size: rand3 * 5 + 2,
-        dur: rand4 * 1.4 + 0.8,
-        xDrift: (rand1 - 0.5) * 140,
-        yDrift: -(rand2 * 180 + 120),
-        color: "radial-gradient(circle, #fde68a 0%, #d97706 70%, transparent 100%)",
-        blur: "none",
-      };
-    });
 
-    // Generate 15 soft vapor puffs deterministically
-    const vapor = Array.from({ length: 15 }, (_, i) => {
-      const seed = i + 100;
-      const rand1 = Math.abs((Math.sin(seed * 12.9898) * 43758.5453) % 1);
-      const rand2 = Math.abs((Math.sin(seed * 78.233) * 43758.5453) % 1);
-      const rand3 = Math.abs((Math.sin(seed * 45.164) * 43758.5453) % 1);
-      const rand4 = Math.abs((Math.sin(seed * 92.128) * 43758.5453) % 1);
-      return {
-        id: `vapor_${i}`,
-        left: rand1 * 60 + 20,
-        top: rand2 * 60 + 20,
-        size: rand3 * 24 + 16,
-        dur: rand4 * 1.8 + 1.2,
-        xDrift: (rand1 - 0.5) * 80,
-        yDrift: -(rand2 * 120 + 80),
-        color: "radial-gradient(circle, rgba(254,243,199,0.3) 0%, rgba(245,158,11,0.06) 65%, transparent 100%)",
-        blur: "blur(4px)",
-      };
-    });
-
-    return [...embers, ...vapor];
-  }, []);
-
-  return (
-    <div className="absolute inset-0 pointer-events-none overflow-hidden z-20">
-      {particles.map((p) => (
-        <motion.div
-          key={p.id}
-          className="absolute gpu-accelerated"
-          style={{
-            left: `${p.left}%`,
-            top: `${p.top}%`,
-            width: p.size,
-            height: p.size,
-            background: p.color,
-            borderRadius: "50%",
-            filter: p.blur,
-          }}
-          initial={{ opacity: 0, scale: 0 }}
-          animate={{
-            opacity: [0, 0.85, 0.85, 0],
-            scale: [0.3, 1.6, 0.3],
-            x: p.xDrift,
-            y: p.yDrift,
-          }}
-          transition={{
-            duration: p.dur,
-            ease: "easeOut",
-          }}
-        />
-      ))}
-    </div>
-  );
-}
 
 /* ─── FINAL FRAME ────────────────────────────────────────────────────── */
 function FinalFrame({ onReplay }) {
-  const [isEnding, setIsEnding] = useState(false);
-  const [showEndingMsg, setShowEndingMsg] = useState(false);
-  const [vaporizeActive, setVaporizeActive] = useState(false);
-
-  useEffect(() => {
-    if (isEnding && !showEndingMsg) {
-      const timer = setTimeout(() => {
-        setVaporizeActive(true);
-      }, 3100);
-      return () => clearTimeout(timer);
-    } else {
-      setVaporizeActive(false);
-    }
-  }, [isEnding, showEndingMsg]);
+  const navigate = useNavigate();
 
   return (
     <motion.div
@@ -855,7 +776,7 @@ function FinalFrame({ onReplay }) {
         <motion.button
           whileHover={{ scale: 1.05, y: -2 }}
           whileTap={{ scale: 0.96 }}
-          onClick={() => setIsEnding(true)}
+          onClick={() => navigate("/end")}
           className="relative flex items-center justify-center overflow-hidden cursor-pointer"
           style={{
             width: "clamp(180px, 50vw, 215px)",
@@ -887,105 +808,7 @@ function FinalFrame({ onReplay }) {
         </motion.button>
       </motion.div>
 
-      {/* ─── FINAL END OVERLAY ─── */}
-      <AnimatePresence>
-        {isEnding && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 1 }}
-            className="fixed inset-0 z-50 bg-black flex flex-col items-center justify-center p-4"
-          >
-            {!showEndingMsg ? (
-              <div className="relative flex items-center justify-center">
-                <motion.img
-                  src={g19}
-                  alt="Final Memory"
-                  initial={{ opacity: 0, scale: 0.95, filter: "blur(0px) brightness(100%)" }}
-                  animate={{
-                    opacity: [0, 1, 1, 0],
-                    scale: [0.95, 1, 1, 1.12],
-                    filter: [
-                      "blur(0px) brightness(100%)",
-                      "blur(0px) brightness(100%)",
-                      "blur(0px) brightness(100%)",
-                      "blur(24px) brightness(280%)"
-                    ]
-                  }}
-                  transition={{
-                    duration: 4.5,
-                    times: [0, 0.22, 0.68, 1],
-                    ease: "easeInOut",
-                  }}
-                  onAnimationComplete={() => setShowEndingMsg(true)}
-                  className="max-w-[90vw] max-h-[80vh] rounded-2xl object-contain border border-amber-200/10 shadow-[0_0_60px_rgba(255,200,120,0.12)]"
-                />
-                {vaporizeActive && <VaporizeParticles />}
-              </div>
-            ) : (
-              <motion.div
-                initial={{ opacity: 0, scale: 0.95, y: 15, filter: "blur(8px)" }}
-                animate={{
-                  opacity: [0, 1, 1, 0],
-                  scale: [0.95, 1, 1, 1.02],
-                  filter: ["blur(8px)", "blur(0px)", "blur(0px)", "blur(6px)"],
-                }}
-                transition={{
-                  duration: 5.5,
-                  times: [0, 0.15, 0.85, 1],
-                  ease: "easeInOut",
-                }}
-                onAnimationComplete={() => {
-                  localStorage.clear();
-                  window.location.replace("https://www.google.com");
-                }}
-                className="text-center px-6 flex flex-col items-center gap-6 relative"
-              >
-                {/* Subtle background glow */}
-                <div
-                  className="absolute pointer-events-none -z-10"
-                  style={{
-                    width: 300,
-                    height: 300,
-                    background: "radial-gradient(circle, rgba(255,180,80,0.12) 0%, transparent 70%)",
-                    filter: "blur(40px)",
-                  }}
-                />
 
-                {/* Main Message */}
-                <h2
-                  className="text-2xl sm:text-4xl text-amber-50 font-light tracking-wide leading-relaxed italic"
-                  style={{
-                    ...FONT_BODY,
-                    textShadow: "0 0 20px rgba(255,200,100,0.35)",
-                  }}
-                >
-                  Waiting for your message...
-                </h2>
-
-                {/* Elegant gold spark divider */}
-                <div className="flex items-center gap-3 justify-center opacity-70">
-                  <span className="text-amber-300 text-xs">✦</span>
-                  <span className="text-amber-400 text-sm">♡</span>
-                  <span className="text-amber-300 text-xs">✦</span>
-                </div>
-
-                {/* Sub message in beautiful cursive script */}
-                <p
-                  className="text-3xl sm:text-5xl text-amber-300 font-medium leading-normal"
-                  style={{
-                    ...FONT_SCRIPT,
-                    textShadow: "0 0 15px rgba(255,180,70,0.4)",
-                  }}
-                >
-                  miss you lot uhmma...
-                </p>
-              </motion.div>
-            )}
-          </motion.div>
-        )}
-      </AnimatePresence>
     </motion.div>
   );
 }
